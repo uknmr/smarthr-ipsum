@@ -2,7 +2,7 @@ import 'dotenv/config'
 import fetch from 'node-fetch'
 import fs from 'fs/promises'
 
-import { extractSentences } from './extractSentences.js'
+import { extractSentences } from './extractSentences.mjs'
 
 const baseURL = 'https://api.github.com'
 const TARGETS = process.env.TARGETS.split(',')
