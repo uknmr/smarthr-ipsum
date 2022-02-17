@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SmartHR ローレム</title>
+  </head>
+  <body>
+    <header>
+      <h1>SmartHR ローレム</h1>
+      <p>
+        日本語のプレースホルダー文字列を生成するツールです。プロダクトコードをソースにしています。
+      </p>
+    </header>
+
+    <main>
+      <p>
+        <label>
+          出力群の数： <input type="number" value="5" id="amount" />
+        </label>
+      </p>
+      <p>
+        <button id="generate">生成</button>
+      </p>
+
+      <section id="result"></section>
+    </main>
+
+    <script>
+      {% include "generate.js" %}
+    </script>
+  </body>
+</html>
