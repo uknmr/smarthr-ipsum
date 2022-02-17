@@ -19,7 +19,13 @@ const main = async () => {
   const sentences = await Promise.all(
     fileList.map(async ({ repository, files }) => {
       const contents = await Promise.all(
-        files.map(async ({ path }) => await getContent(repository, path)),
+        files.map(
+          async ({ path }) =>
+            await getContent(repository, path).catch((e) => {
+              console.log(repository, path)
+              console.trace(e)
+            }),
+        ),
       )
       const sentenceList = contents
         .map((content) => extractSentences(content))
