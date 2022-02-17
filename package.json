@@ -1,6 +1,14 @@
 {
   "name": "smarthr-ipsum",
   "version": "1.0.0",
+  "scripts": {
+    "clean": "rimraf dist",
+    "copy": "cpx sentences.json src/js",
+    "prebuild": "npm-run-all clean copy",
+    "build": "run-s build:*",
+    "build:11ty": "eleventy",
+    "develop": "run-s 'build:11ty --serve'"
+  },
   "main": "index.js",
   "author": "uknmr <y.kinmori@gmail.com>",
   "license": "MIT",
