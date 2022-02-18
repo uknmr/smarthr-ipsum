@@ -33,6 +33,8 @@ export const extractSentences = (text) => {
         case AST_NODE_TYPES.JSXElement:
         case AST_NODE_TYPES.JSXFragment:
           const { length, 0: first, [length - 1]: last } = range
+          // parent のタグが終了したときに内部のテキストを足してる
+          // <parent><child>テキスト</child></parent>
           if (textEndRange && first > textEndRange) {
             textEndRange = undefined
             sentences.push(sentence.join(''))
@@ -42,6 +44,7 @@ export const extractSentences = (text) => {
             !textEndRange &&
             children.filter(
               ({ type, value }) =>
+                // child にテキストでホワイトスペース文字以外が含まれれば開始タグと見なす
                 type === AST_NODE_TYPES.JSXText && /\S/.test(value),
             ).length
 
@@ -56,11 +59,14 @@ export const extractSentences = (text) => {
           parseJSX([declaration])
           continue
         case AST_NODE_TYPES.JSXText:
-          if (/^\s*$/.test(value)) {
+          if (/^[\s\d〜]*$/.test(value)) {
+            continue
+          }
+          if (value.length < 2) {
             continue
           }
 
-          sentence.push(value.replaceAll(/\s/g, ''))
+          sentence.push(value.trim())
           continue
         case AST_NODE_TYPES.ReturnStatement:
           parseJSX([argument])
