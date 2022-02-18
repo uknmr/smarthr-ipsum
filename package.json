@@ -4,10 +4,11 @@
   "scripts": {
     "clean": "rimraf dist",
     "copy": "cpx sentences.json src/js",
-    "prebuild": "npm-run-all clean copy",
+    "prebuild": "npm-run-all clean generate copy",
     "build": "run-s build:*",
     "build:11ty": "eleventy",
-    "develop": "run-s 'build:11ty --serve'"
+    "develop": "run-s 'build:11ty --serve'",
+    "generate": "node generate.mjs"
   },
   "main": "index.js",
   "author": "uknmr <y.kinmori@gmail.com>",
